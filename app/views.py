@@ -31,3 +31,7 @@ def user_page(request, pk):
 	return render(request, 'profile.html', context)
 
 
+def account_page(request):
+	user = request.user
+	context = {'user': user}
+	return render(request, 'account.html', context)
