@@ -21,6 +21,13 @@ def registration_confirmation(request, pk):
 	if request.method == 'POST':
 		event.participation.add(request.user)
 		return redirect('event', pk=event.id)
-	context = {'event':event}
+	context = {'event': event}
 	return render(request, 'event_confirmation.html', context)
 	
+	
+def user_page(request, pk):
+	user = User.objects.get(id=pk)
+	context = {'user': user}
+	return render(request, 'profile.html', context)
+
+
