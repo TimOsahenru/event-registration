@@ -11,15 +11,12 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
-    
-    def __str__(self):
-    	return self.name
-    
-    
+
+
 class Event(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.TextField(null=True, blank=True)
-	participation = models.ManyToManyField(User, blank=True)
+	participation = models.ManyToManyField(User, blank=True, related_name='events')
 	date = models.DateTimeField()
 	updated = models.DateTimeField(auto_now=True)
 	created = models.DateTimeField(auto_now=True)
