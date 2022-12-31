@@ -35,3 +35,8 @@ def account_page(request):
 	user = request.user
 	context = {'user': user}
 	return render(request, 'account.html', context)
+
+
+def project_submission(request, pk):
+	context = {}
+	return render(request, 'submit-project.html', context)

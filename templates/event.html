@@ -4,6 +4,7 @@
 {% block content %}
 <h1>{{event.name}}</h1>
 <a href="{% url 'registration-confirmation' event.id %}">Register for event</a>
+<a href="{% url 'project-submission' event.id %}">Submit project</a>
 <p>{{event.description}}</p>
 
 <div>
