@@ -31,4 +31,4 @@ class Submission(models.Model):
 	details = models.TextField(null=True, blank=True)
 	
 	def __str__(self):
-		return self.participant.username
+		return str(self.participant)

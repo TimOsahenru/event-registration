@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import User, Event, Submission
+from .forms import SubmissionForm
 
 
 def home_page(request):
@@ -38,5 +39,18 @@ def account_page(request):
 
 
 def project_submission(request, pk):
-	context = {}
+	event = Event.objects.get(id=pk)
+	form  =  SubmissionForm()
+	
+	if request.method == 'POST':
+		form = SubmissionForm(request.POST)
+		
+		if form.is_valid():
+			submission = form.save(commit=False)
+			submission.participant = request.user
+			submission.event = event
+			submission.save()
+			return redirect('account')
+			
+	context = {'event': event, 'form': form}
 	return render(request, 'submit-project.html', context)
