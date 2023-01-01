@@ -57,3 +57,12 @@ def project_submission(request, pk):
 			
 	context = {'event': event, 'form': form}
 	return render(request, 'submit-project.html', context)
+	
+	
+def update_submission(request, pk):
+	submission = Submission.objects.get(id=pk)
+	event = submission.event
+	form = SubmissionForm(instance=submission)
+	
+	context = {'form': form, 'event': event}
+	return render(request, 'submit-project.html', context)

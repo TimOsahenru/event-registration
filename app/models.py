@@ -26,9 +26,10 @@ class Event(models.Model):
 		
 		
 class Submission(models.Model):
-	participant = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+	participant = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='submissions')
 	event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
 	details = models.TextField(null=True, blank=True)
 	
 	def __str__(self):
-		return str(self.participant)
+		return str(self.participant) + '---' + str(self.event)
+		
