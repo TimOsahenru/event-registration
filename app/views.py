@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import User, Event, Submission
-from .forms import SubmissionForm
+from .forms import SubmissionForm, CustomUserForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
@@ -27,7 +27,15 @@ def login_page(request):
 	
 
 def register_page(request):
-	context = {}
+	form = CustomUserForm()
+	
+	if request.method == 'POST':
+		form = CustomUserForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('login')
+			
+	context = {'form': form}
 	return render(request, 'login_register.html', context)
 	
 	
