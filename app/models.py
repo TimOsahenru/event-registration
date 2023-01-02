@@ -17,7 +17,9 @@ class Event(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.TextField(null=True, blank=True)
 	participation = models.ManyToManyField(User, blank=True, related_name='events')
-	date = models.DateTimeField()
+	start_date = models.DateTimeField(null=True)
+	end_date = models.DateTimeField()
+	registration_deadline = models.DateTimeField(null=True)
 	updated = models.DateTimeField(auto_now=True)
 	created = models.DateTimeField(auto_now=True)
 	
