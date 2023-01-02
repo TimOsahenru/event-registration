@@ -3,6 +3,7 @@ from .models import User, Event, Submission
 from .forms import SubmissionForm, CustomUserForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
 
 
 def logout_page(request):
@@ -102,6 +103,9 @@ def project_submission(request, pk):
 @login_required(login_url='login')	
 def update_submission(request, pk):
 	submission = Submission.objects.get(id=pk)
+	
+	if request.user != submission.participant:
+		return HttpResponse("You can't be here!!!")
 	event = submission.event
 	form = SubmissionForm(instance=submission)
 	
