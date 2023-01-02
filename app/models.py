@@ -7,7 +7,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, null=True)
     bio = models.TextField(null=True, blank=True)
     hackathon_participant = models.BooleanField(default=True, null=True)
-    # avatar =
+    avatar = models.ImageField(default='avatar.png')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
