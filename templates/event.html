@@ -3,17 +3,20 @@
 
 {% block content %}
 <h1>{{event.name}}</h1>
+
+<div id="event--action--wrapper">
 {% if registered %}
 <p>You have already registered for this event</p>
 {% else %}
-<a href="{% url 'registration-confirmation' event.id %}">Register for event</a>
+<a class="btn btn--primary" href="{% url 'registration-confirmation' event.id %}">Register for event</a>
 {% endif %}
 
 {% if submitted %}
 <p>You have submitted your project already</p>
 {% else %}
-<a href="{% url 'project-submission' event.id %}">Submit project</a>
+<a class="btn btn--primary" href="{% url 'project-submission' event.id %}">Submit project</a>
 {% endif %}
+</div>
 <p>{{event.description}}</p>
 
 <div>

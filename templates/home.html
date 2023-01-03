@@ -24,6 +24,7 @@
 {% for user in users %}
 <a href="{% url 'profile' user.id %}">
 <div class="wrapper--user">
+<img class="user--avatar--sm" src="{{user.avatar.url}}"/>
 <h4>{{user.name}}</h4>
 </div>
 </a>
