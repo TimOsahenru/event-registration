@@ -1,19 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import uuid
 
 
 class User(AbstractUser):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
     name = models.CharField(max_length=100, null=True)
     email = models.EmailField(unique=True, null=True)
     bio = models.TextField(null=True, blank=True)
     hackathon_participant = models.BooleanField(default=True, null=True)
     avatar = models.ImageField(default='avatar.png')
+    
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
 
 class Event(models.Model):
+	id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 	name = models.CharField(max_length=100)
 	description = models.TextField(null=True, blank=True)
 	participation = models.ManyToManyField(User, blank=True, related_name='events')
@@ -28,6 +32,7 @@ class Event(models.Model):
 		
 		
 class Submission(models.Model):
+	id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 	participant = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='submissions')
 	event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
 	details = models.TextField(null=True, blank=True)
