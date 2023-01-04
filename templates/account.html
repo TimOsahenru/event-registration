@@ -4,12 +4,16 @@
 
 <div class="section">
 <h1>My account</h1>
+    <a class="btn btn--warning" href="{% url 'edit_account' %}">Edit</a>
+    <a class="btn btn--warning" href="">Password reset</a>
 </div>
 
 <div class="section">
 <h3>My events</h3>
 {% for event in user.events.all %}
 <a href="{% url 'event' event.id %}">{{event.name}}</a>
+    {% empty %}
+    <p>You have not registered for any event yet</p>
 {% endfor %}
 </div>
 
@@ -17,6 +21,8 @@
 <h3>My submissions</h3>
 {% for sub in user.submissions.all %}
 <a href="{% url 'update-submission' sub.id %}">{{sub.event.name}}</a>
+    {% empty %}
+    <p>You do not have any submission yet</p>
 {% endfor %}
 </div>
 {% endblock %}

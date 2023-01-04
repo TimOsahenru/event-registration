@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import User, Event, Submission
-from .forms import SubmissionForm, CustomUserForm
+from .forms import SubmissionForm, CustomUserForm, UserForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
@@ -42,10 +42,24 @@ def register_page(request):
 	
 def home_page(request):
 	users = User.objects.filter(hackathon_participant=True)
+	count = users.count()
+	users = users[0:20]
 	events = Event.objects.all()
-	context = {'users':users, 'events':events}
+	context = {'users': users, 'events': events, 'count': count}
 	return render(request, 'home.html', context)
-	
+
+
+def edit_account(request):
+	form = UserForm(instance=request.user)
+
+	if request.method == 'POST':
+		form = UserForm(request.POST, request.FILES, instance=request.user)
+		if form.is_valid():
+			form.save()
+			return redirect('account')
+	context = {'form': form}
+	return render(request, 'user_form.html', context)
+
 
 @login_required(login_url='login')	
 def event_page(request, pk):
@@ -53,7 +67,7 @@ def event_page(request, pk):
 	registered = request.user.events.filter(id=event.id).exists()
 	submitted = Submission.objects.filter(participant=request.user, event=event).exists()
 
-	context = {'event':event, 'registered': registered, 'submitted': submitted}
+	context = {'event': event, 'registered': registered, 'submitted': submitted}
 	return render(request, 'event.html', context)
 	
 
@@ -84,7 +98,7 @@ def account_page(request):
 @login_required(login_url='login')
 def project_submission(request, pk):
 	event = Event.objects.get(id=pk)
-	form  =  SubmissionForm()
+	form = SubmissionForm()
 	
 	if request.method == 'POST':
 		form = SubmissionForm(request.POST)
