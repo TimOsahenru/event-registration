@@ -114,3 +114,11 @@ nav a{
 .text--success{
 	color: #198754;
 }
+
+
+.user--avatar--lg{
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}

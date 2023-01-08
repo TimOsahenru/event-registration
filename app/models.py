@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import uuid
+from django_resized import ResizedImageField
 
 
 class User(AbstractUser):
@@ -9,7 +10,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, null=True)
     bio = models.TextField(null=True, blank=True)
     hackathon_participant = models.BooleanField(default=True, null=True)
-    avatar = models.ImageField(default='avatar.png')
+    avatar = ResizedImageField(size=[300,300], default='avatar.png')
     
 
     USERNAME_FIELD = 'email'

@@ -4,6 +4,7 @@ from .forms import SubmissionForm, CustomUserForm, UserForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
+from PIL import Image
 
 
 def logout_page(request):
