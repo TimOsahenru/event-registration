@@ -6,7 +6,8 @@
     <img class="user--avatar--lg" src="{{user.avatar.url}}">
 <h1>My account</h1>
     <a class="btn btn--warning" href="{% url 'edit_account' %}">Edit</a>
-    <a class="btn btn--warning" href="">Password reset</a>
+    <a class="btn btn--warning" href="{% url 'change-password' %}">Password reset</a>
+    <a class="btn btn--warning" href="{% url 'profile' user.id %}">View profile</a>
 </div>
 
 <div class="section">

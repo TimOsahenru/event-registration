@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from PIL import Image
+from django.contrib.auth.hashers import make_password
 
 
 def logout_page(request):
@@ -50,6 +51,7 @@ def home_page(request):
 	return render(request, 'home.html', context)
 
 
+@login_required(login_url='login')	
 def edit_account(request):
 	form = UserForm(instance=request.user)
 
@@ -62,6 +64,21 @@ def edit_account(request):
 	return render(request, 'user_form.html', context)
 
 
+@login_required(login_url='login')	
+def change_password(request):
+	if request.method == 'POST':
+		password1 = request.POST.get('password1')
+		password2 = request.POST.get('password2')
+		
+		if password1 ==  password2:
+			new_password = make_password(password1)
+			request.user.password = new_password
+			request.user.save()
+			return redirect('account')
+	context = {}
+	return render(request, 'account_password.html', context)
+	
+	
 @login_required(login_url='login')	
 def event_page(request, pk):
 	event = Event.objects.get(id=pk)
