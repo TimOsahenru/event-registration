@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from PIL import Image
 from django.contrib.auth.hashers import make_password
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 def logout_page(request):
@@ -45,9 +46,22 @@ def register_page(request):
 def home_page(request):
 	users = User.objects.filter(hackathon_participant=True)
 	count = users.count()
+	
+	page  = request.GET.get('page')
+	paginator = Paginator(users, 5)
+	
+	try:
+		users = paginator.page(page)
+	except PageNotAnInteger:
+		page = 1
+		users = paginator.page(page)
+	except EmptyPage:
+		page = paginator.num_pages
+		users = paginator.page(page)
+		
 	users = users[0:20]
 	events = Event.objects.all()
-	context = {'users': users, 'events': events, 'count': count}
+	context = {'users': users, 'events': events, 'count': count, 'paginator': paginator}
 	return render(request, 'home.html', context)
 
 
