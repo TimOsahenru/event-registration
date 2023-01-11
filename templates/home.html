@@ -33,10 +33,10 @@
 </a>
 {% endfor %}
 </div>
-<div>
-{% for page in paginator.num_pages %}
-<p>test</p>
-{% endfor %}
+<div class="section paginator--wrapper">
+{% for page in pages %}
+<a class="btn btn--primary" href="?page={{page}}">{{page}}</a>
+{% endfor %} 
 </div>
 </section>
 {% endblock %}

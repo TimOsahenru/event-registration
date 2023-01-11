@@ -59,6 +59,7 @@ def home_page(request):
 		page = paginator.num_pages
 		users = paginator.page(page)
 		
+	pages = list(range(1, (paginator.num_pages + 1)))
 	users = users[0:20]
 	events = Event.objects.all()
 	context = {'users': users, 'events': events, 'count': count, 'paginator': paginator}
