@@ -125,8 +125,8 @@ nav a{
 
 
 .paginator--wrapper{
-	disply: flex;
-	flex-wrapper: wrap;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 
@@ -134,4 +134,32 @@ nav a{
 	max-width: 600px;
 	margin: 0 auto;
 	border: 1px solid rgb(218, 218, 218);
+	padding: 1em;
+	border-radius: 5px;
+}
+
+
+.form-field--wrapper{
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+input{
+	width: 100%;
+}
+
+
+
+.error{
+	color: #E55D42;
+}
+
+
+.success{
+	color: #14dd14;
+}
+
+
+.info{
+	color: #0f4bee;
 }

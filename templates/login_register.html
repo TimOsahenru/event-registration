@@ -11,19 +11,19 @@
 <form method="POST" action={% url 'login' %}>
 {% csrf_token %}
 
-<div>
+<div class="form-field--wrapper">
 <label>Email:</label>
 <input type="email" name="email"/>
 </div>
 
-<div>
+<div class="form-field--wrapper">
 <label>Pasword:</label>
 <input type="password" name="password"/>
 </div>
 
 
-<div>
-<input type="submit" value="login"/>
+<div class="form-field--wrapper">
+<input class="btn btn--primary" type="submit" value="login"/>
 </div>
 <p> Do not have an account? <a href="{% url 'register' %}">register</a></p>
 </form>   
@@ -36,8 +36,14 @@
 <div>
 <form method="POST" action="{% url 'register' %}">
 {% csrf_token %}
-{{form.as_p}}
-<input type="submit" value="register" />
+{% for field in form %}
+<div class="form-field--wrapper">
+<label>{{field.label}}</label>
+{{field}}
+<p>{{field.errors}}</p>
+</div>
+{% endfor %}
+<input class="btn btn--primary" type="submit" value="register" />
 <p>Already have an account? </p><a href="{% url 'login' %}">Login here</a>
 </form>
 </div>

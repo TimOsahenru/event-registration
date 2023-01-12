@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from PIL import Image
 from django.contrib.auth.hashers import make_password
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.contrib import messages
 
 
 def logout_page(request):
@@ -25,6 +26,9 @@ def login_page(request):
 		if user is not None:
 			login(request, user)
 			return redirect('home')
+		else:
+			messages.error(request, 'Email or Password is incorrect')
+			return redirect('login')
 			
 	context = {'page': page}
 	return render(request, 'login_register.html', context)
