@@ -40,7 +40,13 @@
 <div class="form-field--wrapper">
 <label>{{field.label}}</label>
 {{field}}
-<p>{{field.errors}}</p>
+
+<div>
+    {% for error in field.errors %}
+    <p class="error">{{error}}</p>
+    {% endfor %}
+</div>
+
 </div>
 {% endfor %}
 <input class="btn btn--primary" type="submit" value="register" />
