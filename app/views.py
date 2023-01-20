@@ -8,6 +8,7 @@ from PIL import Image
 from django.contrib.auth.hashers import make_password
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.contrib import messages
+from datetime import datetime
 
 
 def logout_page(request):
@@ -101,10 +102,15 @@ def change_password(request):
 @login_required(login_url='login')	
 def event_page(request, pk):
 	event = Event.objects.get(id=pk)
+
+	present = datetime.now().timestamp()
+	deadline = event.end_date.timestamp()
+	past_deadline = (present > deadline)
+
 	registered = request.user.events.filter(id=event.id).exists()
 	submitted = Submission.objects.filter(participant=request.user, event=event).exists()
 
-	context = {'event': event, 'registered': registered, 'submitted': submitted}
+	context = {'event': event, 'registered': registered, 'submitted': submitted, 'past_deadline': past_deadline}
 	return render(request, 'event.html', context)
 	
 

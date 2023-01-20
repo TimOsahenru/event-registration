@@ -7,9 +7,10 @@
 <h1>{{event.name}}</h1>
 </div>
 
+{% if past_deadline == False %}
 <div class="section" id="event--action--wrapper">
 {% if registered %}
-<p class="text--success">You have already registered for this event || </p>
+<p class="text--success">You have already registered for this event </p>
 {% else %}
 <a class="btn btn--primary" href="{% url 'registration-confirmation' event.id %}">Register for event</a>
 {% endif %}
@@ -20,6 +21,9 @@
 <a class="btn btn--primary" href="{% url 'project-submission' event.id %}">Submit project</a>
 {% endif %}
 </div>
+{% else %}
+<p>Registration closed for this event</p>
+{% endif %}
 
 <div class="section">
 <p>{{event.description|linebreaks|urlize}}</p>
